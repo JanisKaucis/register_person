@@ -10,7 +10,8 @@ use App\Controllers\HomeController;
 
 $data = new MySQLStorageRepository();
 $indexController = new HomeController();
-$indexController->getPersonsList();
+echo $indexController->getPersonsList();
 $indexController->searchPerson();
 $indexController->SearchAfterCode();
 $indexController->refreshData();
+

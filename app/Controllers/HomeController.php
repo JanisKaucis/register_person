@@ -4,20 +4,24 @@ namespace App\Controllers;
 
 use App\Repositories\Persons\MySQLStorageRepository;
 use App\Services\StorePersonService;
+use App\Services\TwigService;
 
 class HomeController
 {
     public StorePersonService $service;
+    public TwigService $twigLoader;
 
     public function __construct()
     {
         $this->service = new StorePersonService(new MySQLStorageRepository());
+        $this->twigLoader = new TwigService();
     }
 
-    public function getPersonsList(): void
+    public function getPersonsList()
     {
         $persons = $this->service->show();
-        require_once 'app/Views/HomeView.php';
+            require_once 'app/Views/HomeView.php';
+//        return $this->twigLoader->twig->render('HomeView.twig', $persons);
     }
 
     public function searchPerson(): void
