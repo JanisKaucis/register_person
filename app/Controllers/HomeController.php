@@ -20,11 +20,13 @@ class HomeController
     public function getPersonsList()
     {
         $persons = $this->service->show();
-            require_once 'app/Views/HomeView.php';
-//        return $this->twigLoader->twig->render('HomeView.twig', $persons);
+        $context = [
+            'persons' => $persons,
+        ];
+        echo $this->twigLoader->twig->render('HomeView.twig', $context);
     }
 
-    public function searchPerson(): void
+    public function searchPerson()
     {
         session_start();
         if (isset($_POST['submit1'])) {
@@ -34,7 +36,10 @@ class HomeController
             $results = $this->service->search($_SESSION['search']);
         }
         if (!empty($results)) {
-            require_once 'app/Views/SearchView.php';
+            $context = [
+                'persons' => $results,
+            ];
+            echo $this->twigLoader->twig->render('SearchView.twig', $context);
         }
         if (isset($_POST['clear1'])) {
             $_SESSION['search'] = [];
@@ -42,9 +47,9 @@ class HomeController
         }
     }
 
-    public function SearchAfterCode(): void
+    public function SearchAfterCode()
     {
-        require_once 'app/Views/CodeInputView.php';
+        echo $this->twigLoader->twig->render('CodeInputView.twig');
         if (isset($_POST['submit2'])) {
             $_SESSION['code'] = $_POST['code'];
         }
@@ -52,8 +57,10 @@ class HomeController
             $result = $this->service->searchAfterCode($_SESSION['code']);
         }
         if (!empty($result)) {
-            require_once 'app/Views/CodeSearchView.php';
-            require_once 'app/Views/DeleteOrUpdateView.php';
+            $context = [
+                'persons' => $result,
+            ];
+            echo $this->twigLoader->twig->render('CodeSearchView.twig', $context);
         }
         if (isset($_POST['clear2'])) {
             $_SESSION['code'] = [];
@@ -65,7 +72,7 @@ class HomeController
             header('Location: index.php');
         }
         if (isset($_POST['update'])) {
-            require_once 'app/Views/UpdateInputView.php';
+            echo $this->twigLoader->twig->render('UpdateInputView.twig');
         }
         if (isset($_POST['submit3'])) {
             $this->service->update('notes', $_POST['notes'], $_SESSION['code']);
@@ -75,7 +82,7 @@ class HomeController
 
     public function refreshData()
     {
-        require_once 'app/Views/refreshView.php';
+        echo $this->twigLoader->twig->render('RefreshView.twig');
         if (isset($_POST['submit4'])) {
             session_destroy();
             header('Location: index.php');

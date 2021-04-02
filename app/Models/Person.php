@@ -3,7 +3,7 @@ namespace App\Models;
 
 class Person
 {
-    public $name;
+    private $name;
     private $surname;
     private $age;
     private $personalCode;
