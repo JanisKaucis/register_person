@@ -11,7 +11,7 @@ private StorageRepository $repository;
     {
         $this->repository = $repository;
     }
-    public function showAll(): array
+    public function show(): array
     {
         return $this->repository->exportRepository()->getPersons();
     }
@@ -34,17 +34,5 @@ private StorageRepository $repository;
     public function addCode($personalCode,$code)
     {
         return $this->repository->addCode($personalCode,$code);
-    }
-    public function searchAfterToken($token)
-    {
-        return $this->repository->searchAfterToken($token);
-    }
-    public function getExpireTimeForToken($token)
-    {
-        return $this->repository->getExpireTimeForToken($token);
-    }
-    public function setExpireTimeForToken($token,$expireDate)
-    {
-        return $this->repository->setExpireTimeForToken($token,$expireDate);
     }
 }

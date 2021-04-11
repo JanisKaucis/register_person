@@ -86,7 +86,7 @@
     "xtend": "^4.0.2"
   },
   "scripts": {
-    "build": "postcss app/css/styles.css -o app/build/styles.css"
+    "build-css": "postcss app/public/css/styles.css -o app/public/build/styles.css"
   },
   "keywords": [],
   "author": "",

@@ -68,5 +68,21 @@ class MySQLStorageRepository implements StorageRepository
     {
         $this->database->delete('Persons',['personal_code' => $code]);
     }
+    public function addCode($personalCode,$code){
+        $this->database->update('Persons',['LoginCode' => $code],['personal_code' => $personalCode]);
+    }
+    public function searchAfterToken($token):array
+    {
+        $search = $this->database->select('Persons','*',['LoginCode' => $token]);
+        return $search;
+    }
+    public function setExpireTimeForToken($token,$expireDate)
+    {
+        $this->database->update('Persons',['TokenExpireDate' => $expireDate],['LoginCode' => $token]);
+    }
+    public function getExpireTimeForToken($token)
+    {
+        return $this->database->select('Persons',['TokenExpireDate'],['LoginCode' => $token]);
+    }
 }
 

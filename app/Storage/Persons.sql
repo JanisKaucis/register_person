@@ -28,7 +28,10 @@ CREATE TABLE `Persons` (
   `age` int DEFAULT NULL,
   `personal_code` varchar(255) NOT NULL,
   `address` varchar(255) DEFAULT NULL,
-  `notes` varchar(255) DEFAULT NULL
+  `notes` varchar(255) DEFAULT NULL,
+  `LoginCode` varchar(255) DEFAULT NULL,
+  `TokenExpireDate` int DEFAULT NULL,
+  UNIQUE KEY `Persons_LoginCode_uindex` (`LoginCode`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -38,7 +41,7 @@ CREATE TABLE `Persons` (
 
 LOCK TABLES `Persons` WRITE;
 /*!40000 ALTER TABLE `Persons` DISABLE KEYS */;
-INSERT INTO `Persons` VALUES ('Laila','Koks',30,'444444-44444','Riga','nav precejusies'),('Peteris','Dulle',40,'222222-22222','Liepaja','ronis un malacis'),('Janis','Koks',20,'111111-11111','Rezekne','koka stumbrs'),('Maija','Kokle',50,'333333-33333','Valmiera','laba');
+INSERT INTO `Persons` VALUES ('Laila','Koks',30,'444444-44444','Riga','stradiga','6071f0896308d',1618166281),('Peteris','Dulle',40,'222222-22222','Liepaja','ronis un malacis','6071f133b70ab',1618080052),('Janis','Koks',20,'111111-11111','Rezekne','stradigs','6071f11d6c419',1618166429),('Maija','Kokle',50,'333333-33333','Valmiera','amature','60706e79a2ce4',NULL);
 /*!40000 ALTER TABLE `Persons` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-31 15:01:54
+-- Dump completed on 2021-04-10 21:44:15

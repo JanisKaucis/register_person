@@ -19,7 +19,7 @@ class HomeController
 
     public function getPersonsList()
     {
-        $persons = $this->service->show();
+        $persons = $this->service->showAll();
         $context = [
             'persons' => $persons,
         ];
@@ -30,10 +30,10 @@ class HomeController
     {
         session_start();
         if (isset($_POST['submit1'])) {
-            $_SESSION['search'] = ucfirst($_POST['search']);
+            $_SESSION['person']['search'] = ucfirst($_POST['search']);
         }
-        if (isset($_SESSION['search'])) {
-            $results = $this->service->search($_SESSION['search']);
+        if (isset($_SESSION['person']['search'])) {
+            $results = $this->service->search($_SESSION['person']['search']);
         }
         if (!empty($results)) {
             $context = [
@@ -42,8 +42,7 @@ class HomeController
             echo $this->twigLoader->twig->render('SearchView.twig', $context);
         }
         if (isset($_POST['clear1'])) {
-            $_SESSION['search'] = [];
-            header('Location: index.php');
+            $_SESSION['person']['search'] = [];
         }
     }
 
@@ -51,10 +50,10 @@ class HomeController
     {
         echo $this->twigLoader->twig->render('CodeInputView.twig');
         if (isset($_POST['submit2'])) {
-            $_SESSION['code'] = $_POST['code'];
+            $_SESSION['person']['code'] = $_POST['code'];
         }
-        if (isset($_SESSION['code'])) {
-            $result = $this->service->searchAfterCode($_SESSION['code']);
+        if (isset($_SESSION['person']['code'])) {
+            $result = $this->service->searchAfterCode($_SESSION['person']['code']);
         }
         if (!empty($result)) {
             $context = [
@@ -63,20 +62,17 @@ class HomeController
             echo $this->twigLoader->twig->render('CodeSearchView.twig', $context);
         }
         if (isset($_POST['clear2'])) {
-            $_SESSION['code'] = [];
-            header('Location: index.php');
+            $_SESSION['person']['code'] = [];
         }
 
         if (isset($_POST['delete'])) {
-            $this->service->delete($_SESSION['code']);
-            header('Location: index.php');
+            $this->service->delete($_SESSION['person']['code']);
         }
         if (isset($_POST['update'])) {
             echo $this->twigLoader->twig->render('UpdateInputView.twig');
         }
         if (isset($_POST['submit3'])) {
-            $this->service->update('notes', $_POST['notes'], $_SESSION['code']);
-            header('Location: index.php');
+            $this->service->update('notes', $_POST['notes'], $_SESSION['person']['code']);
         }
     }
 
@@ -84,8 +80,7 @@ class HomeController
     {
         echo $this->twigLoader->twig->render('RefreshView.twig');
         if (isset($_POST['submit4'])) {
-            session_destroy();
-            header('Location: index.php');
+            unset($_SESSION['person']);
         }
     }
 }
