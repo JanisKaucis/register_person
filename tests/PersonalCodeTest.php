@@ -10,14 +10,14 @@ class PersonalCodeTest extends TestCase
     public function testPersonalCodeLength()
     {
         $data = new StorePersonService(new MySQLStorageRepository());
-        foreach ($data->show() as $person){
+        foreach ($data->showAll() as $person){
             $this->assertEquals(12,strlen($person->getPersonalCode()));
         }
     }
     public function testForLine()
     {
         $data = new StorePersonService(new MySQLStorageRepository());
-        foreach ($data->show() as $person){
+        foreach ($data->showAll() as $person){
             $this->assertEquals('-',$person->getPersonalCode()[6]);
         }
     }
@@ -25,7 +25,7 @@ class PersonalCodeTest extends TestCase
     {
         $data = new StorePersonService(new MySQLStorageRepository());
 
-        foreach ($data->show() as $person){
+        foreach ($data->showAll() as $person){
             $value = explode('-',$person->getPersonalCode());
                 $this->assertEquals(6,strlen(intval($value[0])));
                 $this->assertEquals(5,strlen(intval($value[1])));
