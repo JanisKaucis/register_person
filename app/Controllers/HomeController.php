@@ -43,6 +43,7 @@ class HomeController
         }
         if (isset($_POST['clear1'])) {
             $_SESSION['person']['search'] = [];
+            header('Location: ');
         }
     }
 
@@ -63,16 +64,19 @@ class HomeController
         }
         if (isset($_POST['clear2'])) {
             $_SESSION['person']['code'] = [];
+            header('Location: ');
         }
 
         if (isset($_POST['delete'])) {
             $this->service->delete($_SESSION['person']['code']);
+            header('Location: ');
         }
         if (isset($_POST['update'])) {
             echo $this->twigLoader->twig->render('UpdateInputView.twig');
         }
         if (isset($_POST['submit3'])) {
             $this->service->update('notes', $_POST['notes'], $_SESSION['person']['code']);
+            header('Location: ');
         }
     }
 
@@ -81,6 +85,7 @@ class HomeController
         echo $this->twigLoader->twig->render('RefreshView.twig');
         if (isset($_POST['submit4'])) {
             unset($_SESSION['person']);
+            header('Location: ');
         }
     }
 }
