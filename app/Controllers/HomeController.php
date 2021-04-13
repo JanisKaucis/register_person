@@ -28,7 +28,6 @@ class HomeController
 
     public function searchPerson()
     {
-        session_start();
         if (isset($_POST['submit1'])) {
             $_SESSION['person']['search'] = ucfirst($_POST['search']);
         }
